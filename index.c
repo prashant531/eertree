@@ -2,7 +2,7 @@
 #include<malloc.h>
 
 #define MAX_SIZE 1000
-
+//Sample test
 struct node {
     int start, end;
     int len;
