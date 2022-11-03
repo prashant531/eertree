@@ -28,6 +28,7 @@ NODE *new ()
 
 NODE *root1, *root2, *current;
 int Suffix[MAX_SIZE + 2];
+int Prefix[MAX_SIZE + 2]= {0};
 int occ[MAX_SIZE + 2];
 
 int insert(char *s, int pos)
@@ -52,6 +53,7 @@ int insert(char *s, int pos)
         t->suffix = root2;
         current = t;
         Suffix[pos] = 1;
+        Prefix[pos]++;
         return 0;
     }
 
@@ -66,6 +68,7 @@ int insert(char *s, int pos)
     }
     current = t;
     Suffix[pos] = 1 + Suffix[current->suffix->end];
+    Prefix[t->start]++;
     occ[pos]++;
     return 0;
 }
@@ -115,6 +118,12 @@ int count()
     return count1 + count2 - 2;
 }
 
+int startAtIndex(int pos)
+{
+    return Prefix[pos];
+}
+
+
 int endAtIndex(int pos)
 {
     return Suffix[pos];
@@ -142,7 +151,8 @@ int main()
         printf("2) Press 2 to Print: \n");
         printf("3) Press 3 to see no of distinct palindromes: \n"); 
         printf("4) Press 4 to see no of palindromes ending at certain index: \n");
-        printf("5) Press 5 to exit \n");
+        printf("5) Press 5 to see no of palindromes starting at certain index: \n");
+        printf("6) Press 6 to exit \n");
 
         int choice;
         printf("Enter your choice : ");
@@ -192,6 +202,15 @@ int main()
         }
         case 5:
         {
+            printf("Enter the index to see number of palindromes starting at that index : ");
+            int index;
+            scanf("%d",&index);
+            printf("Number of Palindromes starting at Index %d are : %d\n",index,startAtIndex(index));
+            break;
+            
+        }
+        case 6:
+        {
             exit(1);
         }
         default:
@@ -210,4 +229,3 @@ int main()
 
     return 0;
 }
-
