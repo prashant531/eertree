@@ -3,6 +3,9 @@
 #include <sys/time.h>
 
 #define MAX_SIZE 1000
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define RESET "\x1B[0m"
 
 struct node
 {
@@ -12,10 +15,6 @@ struct node
     struct node *label[26];
 };
 typedef struct node NODE;
-
-void clearscreen() {
-    printf("\e[1;1H\e[2J");
-}
 
 NODE *new ()
 {
@@ -153,13 +152,14 @@ int main()
 
     while (1)
     {
-        clearscreen();
+        printf("\n");
         printf("List: \n");
         printf("1) Press 1 to Insert: \n");
         printf("2) Press 2 to Print: \n");
         printf("3) Press 3 to see no of distinct palindromes: \n"); 
         printf("4) Press 4 to see no of palindromes ending at certain index: \n");
         printf("5) Press 5 to see no of palindromes starting at certain index: \n");
+        printf("6) Press 6 to exit\n");
 
         int choice;
         printf("Enter your choice : ");
@@ -194,53 +194,66 @@ int main()
             }
             printf("\n");
             printf("Distinct Palindromes : \n");
+            printf(YEL);
             show(s);
+            printf(RESET);
             gettimeofday(&t1, NULL);
             secs  = t1.tv_sec  - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
-            printf("Time taken : %lf sec\n", mtime/100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime/100.0);
+            printf(RESET);
             break;
         }
         case 3:
         {
             gettimeofday(&t0, NULL);
-            printf("Total number of distinct palindromes : %d\n",count());
+            printf("Total number of distinct palindromes : ");
+            printf(YEL); printf("%d\n", count()); printf(RESET);
             gettimeofday(&t1, NULL);
             secs  = t1.tv_sec  - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
-            printf("Time taken : %lf sec\n", mtime/100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime/100.0);
+            printf(RESET);
             break;
         }
         case 4:
         {
-            gettimeofday(&t0, NULL);
             printf("Enter the index to see number of palindromes ending at that index : ");
             int index;
             scanf("%d",&index);
-            printf("Number of Palindromes ending at Index %d are : %d\n",index,endAtIndex(index));
+            gettimeofday(&t0, NULL);
+            printf("Number of Palindromes ending at Index %d are : ",index);
+            printf(YEL); printf("%d\n", endAtIndex(index)); printf(RESET);
             gettimeofday(&t1, NULL);
             secs  = t1.tv_sec  - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
-            printf("Time taken : %lf sec\n", mtime/100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime/100.0);
+            printf(RESET);
             break;
         }
         case 5:
         {
-            gettimeofday(&t0, NULL);
             printf("Enter the index to see number of palindromes starting at that index : ");
             int index;
             scanf("%d",&index);
-            printf("Number of Palindromes starting at Index %d are : %d\n",index,startAtIndex(index));
+            gettimeofday(&t0, NULL);
+            printf("Number of Palindromes starting at Index %d are : ",index);
+            printf(YEL); printf("%d\n", startAtIndex(index)); printf(RESET);
             gettimeofday(&t1, NULL);
             secs  = t1.tv_sec  - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
-            printf("Time taken : %lf sec\n", mtime/100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime/100.0);
+            printf(RESET);
             break;
             
+        }
+        case 6:
+        {
+            exit(1);
         }
         default:
         {
@@ -248,10 +261,6 @@ int main()
             break;
         }
         }
-        printf("Continue? y/n\n");
-        char chch; scanf("%c",&chch);
-        if(chch=='y' || chch=='Y') continue;
-        else exit(1);
     }
     return 0;
 }
