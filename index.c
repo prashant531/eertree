@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <sys/time.h>
 
 #define MAX_SIZE 1000
 
@@ -11,6 +12,10 @@ struct node
     struct node *label[26];
 };
 typedef struct node NODE;
+
+void clearscreen() {
+    printf("\e[1;1H\e[2J");
+}
 
 NODE *new ()
 {
@@ -139,6 +144,8 @@ int main()
     root2->suffix = root1;
     current = root2;
 
+    struct timeval t0, t1;
+    long mtime, secs, usecs;
     char str;
     char word[MAX_SIZE];
     char *s = word;
@@ -146,18 +153,19 @@ int main()
 
     while (1)
     {
+        clearscreen();
         printf("List: \n");
         printf("1) Press 1 to Insert: \n");
         printf("2) Press 2 to Print: \n");
         printf("3) Press 3 to see no of distinct palindromes: \n"); 
         printf("4) Press 4 to see no of palindromes ending at certain index: \n");
         printf("5) Press 5 to see no of palindromes starting at certain index: \n");
-        printf("6) Press 6 to exit \n");
 
         int choice;
         printf("Enter your choice : ");
         scanf("%d", &choice);
         fflush(stdin);
+        printf("\n");
 
         switch (choice)
         {
@@ -177,7 +185,9 @@ int main()
         }
 
         case 2:
-        {   printf("\nString at the given moment : ");
+        {   
+            gettimeofday(&t0, NULL);
+            printf("\nString at the given moment : ");
             for(int j=0;j<i;j++)
             {
                 printf("%c",word[j]);
@@ -185,47 +195,63 @@ int main()
             printf("\n");
             printf("Distinct Palindromes : \n");
             show(s);
+            gettimeofday(&t1, NULL);
+            secs  = t1.tv_sec  - t0.tv_sec;
+            usecs = t1.tv_usec - t0.tv_usec;
+            mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
+            printf("Time taken : %lf sec\n", mtime/100.0);
             break;
         }
         case 3:
         {
+            gettimeofday(&t0, NULL);
             printf("Total number of distinct palindromes : %d\n",count());
+            gettimeofday(&t1, NULL);
+            secs  = t1.tv_sec  - t0.tv_sec;
+            usecs = t1.tv_usec - t0.tv_usec;
+            mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
+            printf("Time taken : %lf sec\n", mtime/100.0);
             break;
         }
         case 4:
         {
+            gettimeofday(&t0, NULL);
             printf("Enter the index to see number of palindromes ending at that index : ");
             int index;
             scanf("%d",&index);
             printf("Number of Palindromes ending at Index %d are : %d\n",index,endAtIndex(index));
+            gettimeofday(&t1, NULL);
+            secs  = t1.tv_sec  - t0.tv_sec;
+            usecs = t1.tv_usec - t0.tv_usec;
+            mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
+            printf("Time taken : %lf sec\n", mtime/100.0);
             break;
         }
         case 5:
         {
+            gettimeofday(&t0, NULL);
             printf("Enter the index to see number of palindromes starting at that index : ");
             int index;
             scanf("%d",&index);
             printf("Number of Palindromes starting at Index %d are : %d\n",index,startAtIndex(index));
+            gettimeofday(&t1, NULL);
+            secs  = t1.tv_sec  - t0.tv_sec;
+            usecs = t1.tv_usec - t0.tv_usec;
+            mtime = ((secs) * 1000 + usecs/1000.0) + 0.5;
+            printf("Time taken : %lf sec\n", mtime/100.0);
             break;
             
         }
-        case 6:
-        {
-            exit(1);
-        }
         default:
         {
-            // for (int j = 0; j < i; j++)
-            // {
-            //     printf("%d ", endAtIndex(j));
-            // }
             printf("Please Enter valid input\n");
             break;
         }
         }
+        printf("Continue? y/n\n");
+        char chch; scanf("%c",&chch);
+        if(chch=='y' || chch=='Y') continue;
+        else exit(1);
     }
-
-    // show(s);
-
     return 0;
 }
