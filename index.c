@@ -49,11 +49,13 @@ int insert(char *s, int pos)
         cur = cur->suffix;
     }
 
-    if(cur->label[letter] != NULL){
+    if (cur->label[letter] != NULL)
+    {
         current = cur->label[letter];
         current->occ++;
-        NODE* temp = current->suffix;
-        while(temp!=root1 && temp!=root2){
+        NODE *temp = current->suffix;
+        while (temp != root1 && temp != root2)
+        {
             temp->occ++;
             temp = temp->suffix;
         }
@@ -95,8 +97,9 @@ int insert(char *s, int pos)
     current = t;
     Suffix[pos] = 1 + Suffix[current->suffix->end];
 
-    NODE* temp = current->suffix;
-    while(temp!=root1 && temp!=root2){
+    NODE *temp = current->suffix;
+    while (temp != root1 && temp != root2)
+    {
         temp->occ++;
         temp = temp->suffix;
     }
@@ -107,12 +110,14 @@ void print(char *s, NODE *head)
 {
     if (head != root1 || head != root2)
     {
+
         for (int i = head->start; i <= head->end; ++i)
         {
             printf("%c", s[i]);
         }
+        if (head->start != -1)
+            printf("    %d times", head->occ);
         printf("\n");
-        printf("OCC val : %d\n",head->occ);
     }
     for (int i = 0; i < 26; ++i)
     {
@@ -153,7 +158,7 @@ void pop(int pos, char *s)
         cur = cur->suffix;
     }
 
-    if (pos > 0)
+    if (pos > 0 && current->occ == 1)
     {
         cur = palSuf[pos - 1];
         while (1)
@@ -165,7 +170,18 @@ void pop(int pos, char *s)
         cur->label[letter] = NULL;
     }
 
-    free(current);
+    cur = current;
+    while (cur->start != -1)
+    {
+        cur->occ--;
+        cur = cur->suffix;
+    }
+
+    if (current->occ == 0)
+    {
+        free(current);
+    }
+
     if (pos > 0)
     {
         current = palSuf[pos - 1];
