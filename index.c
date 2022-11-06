@@ -174,6 +174,10 @@ int main()
             printf("Append the string : ");
             while ((str = (char)getchar()) != '\n')
             {
+                if(str>='A' && str<='Z'){
+                    str = str + 32;
+                }
+                
                 word[i] = str;
                 ++i;
             }
@@ -223,6 +227,11 @@ int main()
             printf("Enter the index to see number of palindromes ending at that index : ");
             int index;
             scanf("%d",&index);
+            if(index>=i){
+                printf("Invalid...Index cannot be greater than length\n");
+                continue;
+            }
+
             gettimeofday(&t0, NULL);
             printf("Number of Palindromes ending at Index %d are : ",index);
             printf(YEL); printf("%d\n", endAtIndex(index)); printf(RESET);
