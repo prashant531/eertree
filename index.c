@@ -262,10 +262,17 @@ int main()
                 word[i] = str;
                 ++i;
             }
+            gettimeofday(&t0, NULL);
             for (int j = size; j < i; ++j)
             {
                 insert(s, j);
             }
+            gettimeofday(&t1, NULL);
+            secs = t1.tv_sec - t0.tv_sec;
+            usecs = t1.tv_usec - t0.tv_usec;
+            mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
+            printf(RESET);
             size = i;
             break;
         }
@@ -293,7 +300,7 @@ int main()
             secs = t1.tv_sec - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
-            printf(GRN "Time taken : %lf sec\n", mtime / 100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
             printf(RESET);
             break;
         }
@@ -314,7 +321,7 @@ int main()
             secs = t1.tv_sec - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
-            printf(GRN "Time taken : %lf sec\n", mtime / 100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
             printf(RESET);
             break;
         }
@@ -329,7 +336,7 @@ int main()
             secs = t1.tv_sec - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
-            printf(GRN "Time taken : %lf sec\n", mtime / 100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
             printf(RESET);
             break;
         }
@@ -353,7 +360,7 @@ int main()
             secs = t1.tv_sec - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
-            printf(GRN "Time taken : %lf sec\n", mtime / 100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
             printf(RESET);
             break;
         }
@@ -371,7 +378,7 @@ int main()
             secs = t1.tv_sec - t0.tv_sec;
             usecs = t1.tv_usec - t0.tv_usec;
             mtime = ((secs)*1000 + usecs / 1000.0) + 0.5;
-            printf(GRN "Time taken : %lf sec\n", mtime / 100.0);
+            printf(GRN "Time taken : %lf sec\n", mtime / 1000.0);
             printf(RESET);
             break;
         }
