@@ -26,7 +26,7 @@ of occurences in the strings and number of palindromes ending or starting from a
 
 
 ## Average Time Complexity of Operations :
-1. Insert : O(n)
+1. Insert : O(nlogσ)  where σ is number of distinct characters in the string
 2. Pop : O(n)
 3. Print : O(n)
 4. Count : O(n)
