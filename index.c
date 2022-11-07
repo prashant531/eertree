@@ -51,6 +51,7 @@ int insert(char *s, int pos)
 
     if (cur->label[letter] != NULL)
     {
+        palSuf[pos]=cur->label[letter];
         current = cur->label[letter];
         current->occ++;
         NODE *temp = current->suffix;
@@ -177,7 +178,7 @@ void pop(int pos, char *s)
         cur = cur->suffix;
     }
 
-    if (current->occ == 0)
+    if (current->occ == 0 && current!=root1 && current!=root2)
     {
         free(current);
     }
@@ -189,7 +190,7 @@ void pop(int pos, char *s)
     else
     {
         current = root2;
-    }
+    }    
     return;
 }
 
